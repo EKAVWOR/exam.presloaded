@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --brand: 34 197 94; /* green-500 */
+  --brand-2: 16 185 129; /* teal-500 */
+  --text: 16 24 40;
+}
+
+/* Motion-safe */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
+}
+
+@keyframes revealUp {
+  0% { opacity: 0; transform: translate3d(0, 16px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-130%) skewX(-20deg); opacity: 0; }
+  10% { opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translateX(130%) skewX(-20deg); opacity: 0; }
+}
+
+
+/* Shared animated background for hero */
+.bg-animated {
+  background-size: 200% 200%;
+  animation: gradientShift 10s ease-in-out infinite;
+}
+
+/* Decorative orbs */
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(24px);
+  opacity: 0.55;
+  transform: translateZ(0);
+  animation: floaty 7s ease-in-out infinite;
+}
+
+.orb.orb-a { width: 320px; height: 320px; left: -110px; top: -90px; background: rgba(34,197,94,0.45); animation-duration: 9s; }
+.orb.orb-b { width: 280px; height: 280px; right: -90px; top: -40px; background: rgba(16,185,129,0.35); animation-duration: 8s; }
+.orb.orb-c { width: 260px; height: 260px; left: 20%; bottom: -140px; background: rgba(20,184,166,0.25); animation-duration: 10s; }
+
+/* Entrance animations */
+.reveal {
+  opacity: 0;
+  animation: revealUp 700ms cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+/* Stagger helper */
+.reveal-1 { animation-delay: 80ms; }
+.reveal-2 { animation-delay: 160ms; }
+.reveal-3 { animation-delay: 240ms; }
+.reveal-4 { animation-delay: 320ms; }
+
+/* Button shimmer */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -60%;
+  width: 60%;
+  height: 180%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-20deg);
+  opacity: 0;
+}
+
+.btn-shimmer:hover::after {
+  opacity: 1;
+  animation: shimmer 900ms ease-in-out;
+}
+
